@@ -155,3 +155,23 @@ s3-pit-restore comes with a testing suite. You can run it with:
 
 ### Run all the test cases:
 	`$ ./s3-pit-restore -b my-bucket -B restore-bucket-s3 -d /tmp/ -P restore-path --test`
+
+## Restore within same bucket
+
+```
+TIME="03-15-2021 20:00:00 +0" BUCKET="nr-downloads-ohai-testing" PREFIX="deleteme_dir" make restore
+```
+
+## Common errors
+
+### dates compare offset
+
+```
+if version_date > pit_end_date or version_date < pit_start_date:
+TypeError: can't compare offset-naive and offset-aware datetimes
+```
+
+Date format is invalid.
+
+Ensure that it follows this format `"03-15-2020 20:00:00 UTC"`.
+
