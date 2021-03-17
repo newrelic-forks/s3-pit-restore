@@ -1,7 +1,7 @@
 BUILD_VERSION ?= "0.1"
 BUILD_DATE ?= "$(shell date -u +"%Y-%m-%d")"
 .PHONY:
-docker-build:
+build:
 	docker build -t newrelic/s3-pit-restore \
 	--build-arg VERSION=$(BUILD_VERSION) \
 	--build-arg BUILD_DATE=$(BUILD_DATE) \
