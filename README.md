@@ -21,8 +21,10 @@ Or `make build`, will create a local container image.
 
 ## Run
 
+Remember to add final slash to `PREFIX`, otherwise s3 may take it as a file.
+
 ```
-TIME="03-15-2021 20:00:00 +0" BUCKET="bucket_name" PREFIX="folder_path" make restore
+TIME="03-15-2021 20:00:00 +0" BUCKET="bucket_name" PREFIX="folder_path/" make restore
 ```
 
 ### Workflow
