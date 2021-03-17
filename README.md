@@ -159,7 +159,7 @@ s3-pit-restore comes with a testing suite. You can run it with:
 ## Restore within same bucket
 
 ```
-TIME="03-15-2021 20:00:00 +1" BUCKET="bbb" PREFIX="folder_a" DEST_PREFIX="folder_a.restored" make docker-run
+TIME="03-15-2021 20:00:00 +0" BUCKET="nr-downloads-ohai-testing" PREFIX="deleteme_dir" make restore
 ```
 
 ## Common errors
