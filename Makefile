@@ -1,5 +1,7 @@
 BUILD_VERSION ?= "0.1"
 BUILD_DATE ?= "$(shell date -u +"%Y-%m-%d")"
+# Local image by default
+IMAGE ?= docker.io/newrelic/s3-pit-restore
 .PHONY:
 build:
 	docker build -t newrelic/s3-pit-restore \
@@ -20,7 +22,7 @@ restore-in-folder: validate-input validate-no-previous-restored
 	docker run -ti --rm --name=s3-pit-restore \
 	-e AWS_PROFILE \
 	-v $(AWS_FOLDER):/root/.aws \
-	docker.io/newrelic/s3-pit-restore \
+	$(IMAGE) \
 	-b $(BUCKET) -p $(PREFIX) -B $(BUCKET) -P $(PREFIX).restored -t "$(TIME)"
 
 .PHONY:
