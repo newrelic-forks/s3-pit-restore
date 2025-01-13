@@ -10,6 +10,7 @@ It also creates an original folder backup with a `.original` suffix.
 
 - Bucket should have *versioning* enabled.
 - AWS credentials file, provided by `AWS_FOLDER`. By default `$HOME/.aws`.
+  - You can use ./setup_aws_credentials.sh to assume a role and create a temporary credentials file.
 
 ## Build
 
