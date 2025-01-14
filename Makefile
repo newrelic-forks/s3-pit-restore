@@ -18,8 +18,6 @@ restore: restore-in-folder replace-original
 AWS_FOLDER ?= "$(HOME)/.aws"
 .PHONY:
 restore-in-folder: validate-prefix validate-no-previous-restored
-	@echo "Validating that PREFIX does not have trailing slash..."
-	$(shell echo $(PREFIX) | grep -q '/$$' && (echo "error: PREFIX should not have trailing slash"; exit 2))
 	@echo "Restoring original folder at $(TIME) into '.restored' copy..."
 	docker run --rm --name=s3-pit-restore \
 	-e AWS_PROFILE \
