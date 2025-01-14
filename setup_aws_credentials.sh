@@ -12,8 +12,15 @@ if [ -z "$AWS_ACCESS_KEY_ID" ] || \
     exit 1
 fi
 
+
+# 6hours in seconds
+AWS_SESSION_DURATION_SECONDS=21600
 # KST will be an array
-KST=($(aws sts assume-role --role-arn "$AWS_ROLE_ARN" --role-session-name "$AWS_ROLE_SESSION_NAME" --query '[Credentials.AccessKeyId,Credentials.SecretAccessKey,Credentials.SessionToken]' --output text))
+KST=($(aws sts assume-role --role-arn "$AWS_ROLE_ARN" \
+        --role-session-name "$AWS_ROLE_SESSION_NAME" \
+        --duration-seconds $AWS_SESSION_DURATION_SECONDS \
+        --query '[Credentials.AccessKeyId,Credentials.SecretAccessKey,Credentials.SessionToken]' \
+        --output text))
 
 aws configure set aws_region $AWS_REGION --profile $TEMP_AWS_PROFILE
 aws configure set aws_access_key_id "${KST[0]}" --profile $TEMP_AWS_PROFILE
