@@ -2,19 +2,18 @@
 
 set -e
 
-# expects AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ROLE_ARN, AWS_ROLE_SESSION_NAME and TEMP_AWS_PROFILE to be previously setup in env vars
+# expects AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ROLE_ARN, AWS_ROLE_SESSION_NAME, AWS_SESSION_DURATION_SECONDS and TEMP_AWS_PROFILE to be previously setup in env vars
 if [ -z "$AWS_ACCESS_KEY_ID" ] || \
    [ -z "$AWS_SECRET_ACCESS_KEY" ] || \
    [ -z "$AWS_ROLE_ARN" ] || \
    [ -z "$AWS_ROLE_SESSION_NAME" ] || \
+   [ -z "$AWS_SESSION_DURATION_SECONDS" ] || \
    [ -z "$TEMP_AWS_PROFILE" ]; then
-    echo "AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ROLE_ARN, AWS_ROLE_SESSION_NAME, and TEMP_AWS_PROFILE must be set"
+    echo "AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_ROLE_ARN, AWS_ROLE_SESSION_NAME, AWS_SESSION_DURATION_SECONDS and TEMP_AWS_PROFILE must be set"
     exit 1
 fi
 
 
-# 6hours in seconds
-AWS_SESSION_DURATION_SECONDS=21600
 # KST will be an array
 KST=($(aws sts assume-role --role-arn "$AWS_ROLE_ARN" \
         --role-session-name "$AWS_ROLE_SESSION_NAME" \
