@@ -16,6 +16,8 @@ restore: restore-in-folder replace-original
 	@echo "Backup created at $(BUCKET)/$(PREFIX).original"
 
 AWS_FOLDER ?= "$(HOME)/.aws"
+# The tool matches PREFIX as a plain string. The trailing slash after it makes it list only that folder,
+# otherwise infrastructure_agent would also match infrastructure_agent_v2/ and restore it too.
 .PHONY:
 restore-in-folder: validate-prefix validate-no-previous-restored
 	@echo "Restoring original folder at $(TIME) into '.restored' copy..."
@@ -23,7 +25,7 @@ restore-in-folder: validate-prefix validate-no-previous-restored
 	-e AWS_PROFILE \
 	-v $(AWS_FOLDER):/root/.aws \
 	$(IMAGE) \
-	-b $(BUCKET) -p $(PREFIX) -B $(BUCKET) -P $(PREFIX).restored -t "$(TIME)"
+	-b $(BUCKET) -p $(PREFIX)/ -B $(BUCKET) -P $(PREFIX).restored -t "$(TIME)"
 
 .PHONY:
 replace-original: validate-prefix validate-no-previous-original
